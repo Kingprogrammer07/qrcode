@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input</title>
+    <!-- <link rel="stylesheet" href="./input.css"> -->
+    <style>
+        *
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    max-width: 100%;
+    min-height: 100vh;
+    display: grid;
+    background: url(https://wallpaperaccess.com/full/49932.jpg) no-repeat;
+    place-content: center;
+    place-items: center;
+    background-size: cover;
+    font-family: tahoma;
+    backdrop-filter: blur(10px);
+}
+
+section
+{
+    display: grid;
+    place-items: center;
+}
+
+.box
+{
+    padding: 4em;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #bada55;
+    z-index: 2;
+    border-radius: 20px;
+}
+
+
+.box .qrbox
+{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-row-gap: 10px;
+}
+
+.box .qrbox img
+{
+    height: 250px;
+    width: 250px;
+    padding: 0.75em;
+    border: 2px solid #bada55;
+    border-radius: 0.5em;
+    grid-column: 1 / -1;
+}
+
+.box .qrbox textarea
+{
+    text-indent: 13px;
+    font-size: 1.3em;
+    font-family: tahoma;
+    outline: none;
+    height: 2em;
+    border: 2px solid #bada55;
+    border-radius: 0.5em;
+    grid-column: 1 / -1;
+}
+
+.box .qrbox textarea::placeholder
+{
+    text-align: center;
+    padding-top: 5px;
+}
+
+.box .qrbox a,
+.box .qrbox button
+{
+    text-align: center;
+    text-decoration: none;
+    color: #000;
+    font-size: 1em;
+    border: none;
+    outline: none;
+    background: #bada55;
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    transition: 0.2s;
+    grid-column: 1 / -1;
+}
+
+.box .qrbox a:hover,
+.box .qrbox button:hover
+{
+    background: #a4be4b;
+}
+
+@media only screen and (max-width: 400px) {
+    .box
+    {
+        padding: 2em;
+    }
+
+    .box .qrbox img
+    {
+        padding: 0.5em;
+        width: 200px;
+        height: 200px;
+    }
+
+}
+
+    </style>
+</head>
+<body>
+    <section>
+        <div class="class">
+            <div class="box">
+                <div class="qrbox">
+                    <img src="https://is2-ssl.mzstatic.com/image/thumb/Purple112/v4/83/78/d3/8378d380-e4f6-35ee-745b-f2f8ef41169b/AppIcon-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/512x512bb.jpg" alt="qr-kode">
+                    <textarea placeholder="Matn kiriting.."></textarea>
+                    <button>Generate QR Code</button>
+                    <a href="#" style="display: none;" download>Yuklash</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <script src="./qr.js"></script> -->
+    <script>
+let qrcode = select('img');
+let qrtext = select('textarea');
+let qrbtn = select('button');
+let href = select('a');
+
+qrbtn.addEventListener('click', generateQR)
+
+function generateQR() {
+    let size = '1000x1000';
+    let data = qrtext.value;
+    if (data == ""){
+        a = "https://www.logodesign.net/images/qr/qr-img-1.png"
+        let url = `${a}`;
+        qrcode.src = url;
+        href.style.display = "none"
+        alert("QR Code uchun so`z kiritib keyin 'Generate' Qiling!!")
+    } else{
+        let baseURL = 'http://api.qrserver.com/v1/create-qr-code/';
+        let url = `${baseURL}?data=${data}&size=${size}`;
+        qrcode.src = url;
+        href.style.display = 'block'
+        href.href = url
+    }
+
+
+}
+
+function select(el) 
+{
+    return document.querySelector(el);    
+}
+    </script>
+</body>
+</html>
